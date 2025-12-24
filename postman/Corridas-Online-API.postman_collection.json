@@ -1,0 +1,729 @@
+{
+	"info": {
+		"_postman_id": "corridas-online-api",
+		"name": "Corridas Online API",
+		"description": "Coleção completa da API de Corridas Online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "tokenOrganizador",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tokenAtleta",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "eventoId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "categoriaId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "inscricaoId",
+			"value": "1",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/public/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "public", "health"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Registrar Organizador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('tokenOrganizador', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Organizador Teste\",\n    \"email\": \"organizador@teste.com\",\n    \"senha\": \"123456\",\n    \"cpfCnpj\": \"12345678000199\",\n    \"telefone\": \"11999999999\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/registro/organizador",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "registro", "organizador"]
+						}
+					}
+				},
+				{
+					"name": "Registrar Atleta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('tokenAtleta', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Atleta Teste\",\n    \"email\": \"atleta@teste.com\",\n    \"senha\": \"123456\",\n    \"cpf\": \"12345678901\",\n    \"telefone\": \"11988888888\",\n    \"dataNascimento\": \"1990-05-15\",\n    \"sexo\": \"M\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/registro/atleta",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "registro", "atleta"]
+						}
+					}
+				},
+				{
+					"name": "Login Organizador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('tokenOrganizador', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"organizador@teste.com\",\n    \"senha\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Atleta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('tokenAtleta', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"atleta@teste.com\",\n    \"senha\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Eventos - Organizador",
+			"item": [
+				{
+					"name": "Criar Evento",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.id) {",
+									"    pm.collectionVariables.set('eventoId', jsonData.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Corrida de Ano Novo 2025\",\n    \"descricao\": \"A maior corrida de rua da cidade para celebrar o ano novo!\",\n    \"data\": \"2025-01-01\",\n    \"horario\": \"07:00\",\n    \"local\": \"Praça Central\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"bannerUrl\": \"https://exemplo.com/banner.jpg\",\n    \"regulamentoUrl\": \"https://exemplo.com/regulamento.pdf\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Meus Eventos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Evento por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Evento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Corrida de Ano Novo 2025 - Atualizado\",\n    \"descricao\": \"Descrição atualizada do evento\",\n    \"data\": \"2025-01-01\",\n    \"horario\": \"06:30\",\n    \"local\": \"Praça Central - Largada\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"bannerUrl\": \"https://exemplo.com/banner-novo.jpg\",\n    \"regulamentoUrl\": \"https://exemplo.com/regulamento.pdf\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}"]
+						}
+					}
+				},
+				{
+					"name": "Abrir Inscrições",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/abrir-inscricoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "abrir-inscricoes"]
+						}
+					}
+				},
+				{
+					"name": "Fechar Inscrições",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/fechar-inscricoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "fechar-inscricoes"]
+						}
+					}
+				},
+				{
+					"name": "Excluir Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Eventos - Público",
+			"item": [
+				{
+					"name": "Listar Eventos Abertos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/public/eventos",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "public", "eventos"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Evento Público",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/public/eventos/{{eventoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "public", "eventos", "{{eventoId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categorias - Organizador",
+			"item": [
+				{
+					"name": "Criar Categoria",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.id) {",
+									"    pm.collectionVariables.set('categoriaId', jsonData.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Corrida 5km\",\n    \"distanciaKm\": 5.0,\n    \"valor\": 89.90,\n    \"limiteVagas\": 500\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias"]
+						}
+					}
+				},
+				{
+					"name": "Criar Categoria 10km",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Corrida 10km\",\n    \"distanciaKm\": 10.0,\n    \"valor\": 119.90,\n    \"limiteVagas\": 300\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias"]
+						}
+					}
+				},
+				{
+					"name": "Listar Categorias",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Categoria por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias/{{categoriaId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias", "{{categoriaId}}"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Categoria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Corrida 5km - Atualizada\",\n    \"distanciaKm\": 5.0,\n    \"valor\": 99.90,\n    \"limiteVagas\": 600\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias/{{categoriaId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias", "{{categoriaId}}"]
+						}
+					}
+				},
+				{
+					"name": "Excluir Categoria",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/categorias/{{categoriaId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "categorias", "{{categoriaId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categorias - Público",
+			"item": [
+				{
+					"name": "Listar Categorias do Evento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/public/eventos/{{eventoId}}/categorias",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "public", "eventos", "{{eventoId}}", "categorias"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Inscrições - Atleta",
+			"item": [
+				{
+					"name": "Realizar Inscrição",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.id) {",
+									"    pm.collectionVariables.set('inscricaoId', jsonData.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenAtleta}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoriaId\": {{categoriaId}},\n    \"tamanhoCamiseta\": \"M\",\n    \"contatoEmergencia\": \"Maria Silva\",\n    \"telefoneEmergencia\": \"11977777777\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/atleta/eventos/{{eventoId}}/inscricoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "atleta", "eventos", "{{eventoId}}", "inscricoes"]
+						}
+					}
+				},
+				{
+					"name": "Minhas Inscrições",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenAtleta}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/atleta/inscricoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "atleta", "inscricoes"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Minha Inscrição",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenAtleta}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/atleta/inscricoes/{{inscricaoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "atleta", "inscricoes", "{{inscricaoId}}"]
+						}
+					}
+				},
+				{
+					"name": "Cancelar Inscrição",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenAtleta}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/atleta/inscricoes/{{inscricaoId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "atleta", "inscricoes", "{{inscricaoId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Inscrições - Organizador",
+			"item": [
+				{
+					"name": "Listar Inscrições do Evento",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/inscricoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "inscricoes"]
+						}
+					}
+				},
+				{
+					"name": "Listar Inscrições por Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/inscricoes?status=PENDENTE",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "inscricoes"],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDENTE"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Confirmar Pagamento",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/inscricoes/{{inscricaoId}}/confirmar-pagamento",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "inscricoes", "{{inscricaoId}}", "confirmar-pagamento"]
+						}
+					}
+				},
+				{
+					"name": "Atribuir Número de Peito",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenOrganizador}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/eventos/{{eventoId}}/inscricoes/{{inscricaoId}}/numero-peito?numeroPeito=123",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "eventos", "{{eventoId}}", "inscricoes", "{{inscricaoId}}", "numero-peito"],
+							"query": [
+								{
+									"key": "numeroPeito",
+									"value": "123"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

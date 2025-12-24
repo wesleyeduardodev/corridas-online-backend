@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: corridas-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: corridas_db
+      POSTGRES_USER: corridas_user
+      POSTGRES_PASSWORD: corridas_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - corridas_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U corridas_user -d corridas_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  corridas_postgres_data:

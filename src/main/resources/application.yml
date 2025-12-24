@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: corridas-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/corridas_db
+    username: corridas_user
+    password: corridas_pass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:chave-secreta-desenvolvimento-corridas-online-2024-muito-longa-para-seguranca}
+  expiration: 86400000 # 24 horas em milissegundos
+
+# OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Logging
+logging:
+  level:
+    com.corridasonline.api: DEBUG
+    org.springframework.security: DEBUG
