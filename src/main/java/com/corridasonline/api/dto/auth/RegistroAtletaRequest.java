@@ -29,5 +29,14 @@ public record RegistroAtletaRequest(
 
         @NotBlank(message = "Sexo é obrigatório")
         @Size(max = 1, message = "Sexo deve ser M ou F")
-        String sexo
+        String sexo,
+
+        String cidade,
+
+        Integer cidadeIbge,
+
+        @Size(min = 2, max = 2, message = "Estado deve ter 2 caracteres")
+        String estado,
+
+        Integer estadoIbge
 ) {}

@@ -94,7 +94,9 @@ public class EventoService {
         evento.setHorario(request.horario());
         evento.setLocal(request.local());
         evento.setCidade(request.cidade());
+        evento.setCidadeIbge(request.cidadeIbge());
         evento.setEstado(request.estado().toUpperCase());
+        evento.setEstadoIbge(request.estadoIbge());
         evento.setBannerUrl(request.bannerUrl());
         evento.setRegulamentoUrl(request.regulamentoUrl());
         if (request.inscricoesAbertas() != null) {

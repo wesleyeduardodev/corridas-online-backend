@@ -88,6 +88,10 @@ public class AuthService {
         atleta.setTelefone(request.telefone());
         atleta.setDataNascimento(request.dataNascimento());
         atleta.setSexo(request.sexo());
+        atleta.setCidade(request.cidade());
+        atleta.setCidadeIbge(request.cidadeIbge());
+        atleta.setEstado(request.estado() != null ? request.estado().toUpperCase() : null);
+        atleta.setEstadoIbge(request.estadoIbge());
         atletaRepository.save(atleta);
 
         String token = jwtService.gerarToken(usuario);

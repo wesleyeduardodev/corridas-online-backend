@@ -44,8 +44,14 @@ public class Evento extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String cidade;
 
+    @Column(name = "cidade_ibge")
+    private Integer cidadeIbge;
+
     @Column(nullable = false, length = 2)
     private String estado;
+
+    @Column(name = "estado_ibge")
+    private Integer estadoIbge;
 
     @Column(name = "banner_url")
     private String bannerUrl;

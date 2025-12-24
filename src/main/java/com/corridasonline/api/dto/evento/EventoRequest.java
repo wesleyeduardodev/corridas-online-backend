@@ -25,9 +25,15 @@ public record EventoRequest(
         @NotBlank(message = "Cidade é obrigatória")
         String cidade,
 
+        @NotNull(message = "Código IBGE da cidade é obrigatório")
+        Integer cidadeIbge,
+
         @NotBlank(message = "Estado é obrigatório")
         @Size(min = 2, max = 2, message = "Estado deve ter 2 caracteres")
         String estado,
+
+        @NotNull(message = "Código IBGE do estado é obrigatório")
+        Integer estadoIbge,
 
         String bannerUrl,
 

@@ -40,4 +40,16 @@ public class Atleta extends BaseEntity {
     @Column(nullable = false, length = 1)
     private String sexo;
 
+    @Column(length = 100)
+    private String cidade;
+
+    @Column(name = "cidade_ibge")
+    private Integer cidadeIbge;
+
+    @Column(length = 2)
+    private String estado;
+
+    @Column(name = "estado_ibge")
+    private Integer estadoIbge;
+
 }
