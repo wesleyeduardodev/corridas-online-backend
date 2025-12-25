@@ -18,11 +18,11 @@ import com.corridasonline.api.repository.EventoRepository;
 import com.corridasonline.api.repository.InscricaoRepository;
 import com.corridasonline.api.repository.OrganizadorRepository;
 import com.corridasonline.api.security.UsuarioLogado;
+import com.corridasonline.api.util.DateTimeUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -132,7 +132,7 @@ public class InscricaoService {
         }
 
         inscricao.setStatus(StatusInscricao.PAGO);
-        inscricao.setDataPagamento(LocalDateTime.now());
+        inscricao.setDataPagamento(DateTimeUtil.now());
         inscricaoRepository.save(inscricao);
 
         return InscricaoDetalheResponse.fromEntity(inscricao);

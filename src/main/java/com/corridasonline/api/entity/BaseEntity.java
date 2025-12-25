@@ -1,5 +1,6 @@
 package com.corridasonline.api.entity;
 
+import com.corridasonline.api.util.DateTimeUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,12 +30,12 @@ public abstract class BaseEntity {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = DateTimeUtil.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = DateTimeUtil.now();
     }
 
 }

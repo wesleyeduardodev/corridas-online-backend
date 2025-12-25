@@ -1,5 +1,6 @@
 package com.corridasonline.api.exception;
 
+import com.corridasonline.api.util.DateTimeUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,7 +20,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
-                LocalDateTime.now()
+                DateTimeUtil.now()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(),
-                LocalDateTime.now()
+                DateTimeUtil.now()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
@@ -39,7 +40,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.FORBIDDEN.value(),
                 ex.getMessage(),
-                LocalDateTime.now()
+                DateTimeUtil.now()
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
@@ -56,7 +57,7 @@ public class GlobalExceptionHandler {
         ValidationErrorResponse response = new ValidationErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 "Erro de validação",
-                LocalDateTime.now(),
+                DateTimeUtil.now(),
                 errors
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -67,7 +68,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Erro interno do servidor",
-                LocalDateTime.now()
+                DateTimeUtil.now()
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
