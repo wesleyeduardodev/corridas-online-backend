@@ -36,8 +36,6 @@ public class InscricaoService {
     private final OrganizadorRepository organizadorRepository;
     private final UsuarioLogado usuarioLogado;
 
-    // ========== MÉTODOS DO ATLETA ==========
-
     @Transactional
     public InscricaoResponse inscrever(Long eventoId, InscricaoRequest request) {
         Atleta atleta = getAtletaLogado();
@@ -97,8 +95,6 @@ public class InscricaoService {
         inscricaoRepository.save(inscricao);
     }
 
-    // ========== MÉTODOS DO ORGANIZADOR ==========
-
     public List<InscricaoDetalheResponse> listarInscricoesDoEvento(Long eventoId) {
         validarEventoDoOrganizador(eventoId);
         return inscricaoRepository.findByEventoIdOrderByCreatedAtDesc(eventoId)
@@ -107,12 +103,21 @@ public class InscricaoService {
                 .toList();
     }
 
-    public List<InscricaoDetalheResponse> listarInscricoesPorStatus(Long eventoId, StatusInscricao status) {
+    public List<InscricaoDetalheResponse> listarInscricoesPorStatus(Long eventoId, String status) {
         validarEventoDoOrganizador(eventoId);
-        return inscricaoRepository.findByEventoIdAndStatus(eventoId, status)
+        StatusInscricao statusEnum = parseStatus(status);
+        return inscricaoRepository.findByEventoIdAndStatus(eventoId, statusEnum)
                 .stream()
                 .map(InscricaoDetalheResponse::fromEntity)
                 .toList();
+    }
+
+    private StatusInscricao parseStatus(String status) {
+        try {
+            return StatusInscricao.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BusinessException("Status invalido: " + status);
+        }
     }
 
     @Transactional
@@ -145,8 +150,6 @@ public class InscricaoService {
 
         return InscricaoDetalheResponse.fromEntity(inscricao);
     }
-
-    // ========== MÉTODOS PRIVADOS ==========
 
     private void validarInscricao(Atleta atleta, Evento evento, Long categoriaId) {
         if (!evento.getInscricoesAbertas()) {

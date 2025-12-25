@@ -2,7 +2,6 @@ package com.corridasonline.api.controller;
 
 import com.corridasonline.api.controller.document.InscricaoOrganizadorControllerDocument;
 import com.corridasonline.api.dto.inscricao.InscricaoDetalheResponse;
-import com.corridasonline.api.entity.StatusInscricao;
 import com.corridasonline.api.service.InscricaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +34,7 @@ public class InscricaoOrganizadorController implements InscricaoOrganizadorContr
     public ResponseEntity<List<InscricaoDetalheResponse>> listarPorStatus(
             @PathVariable Long eventoId,
             @RequestParam String status) {
-        StatusInscricao statusEnum = StatusInscricao.valueOf(status.toUpperCase());
-        return ResponseEntity.ok(inscricaoService.listarInscricoesPorStatus(eventoId, statusEnum));
+        return ResponseEntity.ok(inscricaoService.listarInscricoesPorStatus(eventoId, status));
     }
 
     @Override
