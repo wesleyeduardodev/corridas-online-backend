@@ -62,6 +62,12 @@ public class Evento extends BaseEntity {
     @Column(name = "inscricoes_abertas", nullable = false)
     private Boolean inscricoesAbertas = false;
 
+    @Column(name = "limite_inscricoes")
+    private Integer limiteInscricoes;
+
+    @Column(name = "trajeto_url")
+    private String trajetoUrl;
+
     @Column(name = "resultados_publicados", nullable = false)
     private Boolean resultadosPublicados = false;
 

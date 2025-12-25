@@ -19,6 +19,8 @@ public record EventoResponse(
         String bannerUrl,
         String regulamentoUrl,
         Boolean inscricoesAbertas,
+        Integer limiteInscricoes,
+        String trajetoUrl,
         Boolean resultadosPublicados,
         String organizadorNome
 ) {
@@ -38,6 +40,8 @@ public record EventoResponse(
                 evento.getBannerUrl(),
                 evento.getRegulamentoUrl(),
                 evento.getInscricoesAbertas(),
+                evento.getLimiteInscricoes(),
+                evento.getTrajetoUrl(),
                 evento.getResultadosPublicados(),
                 evento.getOrganizador().getNome()
         );

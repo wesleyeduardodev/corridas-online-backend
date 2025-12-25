@@ -87,6 +87,13 @@ public class EventoService {
                 .toList();
     }
 
+    public EventoResponse buscarEventoPublico(Long id) {
+        Evento evento = eventoRepository.findById(id)
+                .filter(Evento::getInscricoesAbertas)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento", id));
+        return EventoResponse.fromEntity(evento);
+    }
+
     private void preencherDados(Evento evento, EventoRequest request) {
         evento.setNome(request.nome());
         evento.setDescricao(request.descricao());
@@ -99,6 +106,8 @@ public class EventoService {
         evento.setEstadoIbge(request.estadoIbge());
         evento.setBannerUrl(request.bannerUrl());
         evento.setRegulamentoUrl(request.regulamentoUrl());
+        evento.setLimiteInscricoes(request.limiteInscricoes());
+        evento.setTrajetoUrl(request.trajetoUrl());
         if (request.inscricoesAbertas() != null) {
             evento.setInscricoesAbertas(request.inscricoesAbertas());
         }

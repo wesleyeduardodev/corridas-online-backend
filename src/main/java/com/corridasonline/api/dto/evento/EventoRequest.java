@@ -39,5 +39,9 @@ public record EventoRequest(
 
         String regulamentoUrl,
 
-        Boolean inscricoesAbertas
+        Boolean inscricoesAbertas,
+
+        Integer limiteInscricoes,
+
+        String trajetoUrl
 ) {}
