@@ -58,6 +58,10 @@ public class Inscricao extends BaseEntity {
     @Column(nullable = false)
     private StatusInscricao status = StatusInscricao.PENDENTE;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_anterior")
+    private StatusInscricao statusAnterior;
+
     @Column(name = "data_pagamento")
     private LocalDateTime dataPagamento;
 

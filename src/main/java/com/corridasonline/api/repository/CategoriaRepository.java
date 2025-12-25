@@ -9,4 +9,6 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
     List<Categoria> findByEventoIdOrderByDistanciaKmAsc(Long eventoId);
 
+    void deleteByEventoId(Long eventoId);
+
 }

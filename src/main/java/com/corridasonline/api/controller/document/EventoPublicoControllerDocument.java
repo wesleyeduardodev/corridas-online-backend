@@ -2,7 +2,6 @@ package com.corridasonline.api.controller.document;
 
 import com.corridasonline.api.dto.categoria.CategoriaResponse;
 import com.corridasonline.api.dto.evento.EventoResponse;
-import com.corridasonline.api.dto.evento.TrajetoPontoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,10 +25,5 @@ public interface EventoPublicoControllerDocument {
     @ApiResponse(responseCode = "200", description = "Lista de categorias retornada")
     @ApiResponse(responseCode = "404", description = "Evento não encontrado")
     ResponseEntity<List<CategoriaResponse>> listarCategorias(Long id);
-
-    @Operation(summary = "Listar trajeto do evento", description = "Lista os pontos do trajeto de um evento")
-    @ApiResponse(responseCode = "200", description = "Trajeto retornado")
-    @ApiResponse(responseCode = "404", description = "Evento não encontrado")
-    ResponseEntity<List<TrajetoPontoResponse>> listarTrajeto(Long id);
 
 }

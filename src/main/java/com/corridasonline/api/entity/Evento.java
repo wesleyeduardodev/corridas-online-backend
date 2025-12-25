@@ -2,6 +2,8 @@ package com.corridasonline.api.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -70,5 +72,9 @@ public class Evento extends BaseEntity {
 
     @Column(name = "resultados_publicados", nullable = false)
     private Boolean resultadosPublicados = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusEvento status = StatusEvento.ATIVO;
 
 }

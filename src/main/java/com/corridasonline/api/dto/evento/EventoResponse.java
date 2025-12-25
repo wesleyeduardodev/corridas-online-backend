@@ -1,6 +1,7 @@
 package com.corridasonline.api.dto.evento;
 
 import com.corridasonline.api.entity.Evento;
+import com.corridasonline.api.entity.StatusEvento;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +23,7 @@ public record EventoResponse(
         Integer limiteInscricoes,
         String trajetoUrl,
         Boolean resultadosPublicados,
+        StatusEvento status,
         String organizadorNome
 ) {
 
@@ -43,6 +45,7 @@ public record EventoResponse(
                 evento.getLimiteInscricoes(),
                 evento.getTrajetoUrl(),
                 evento.getResultadosPublicados(),
+                evento.getStatus(),
                 evento.getOrganizador().getNome()
         );
     }
